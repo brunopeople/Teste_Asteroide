@@ -28,7 +28,7 @@
     </thead>
     <tbody>
       
-      @foreach($pessoas as $pessoa)
+      @foreach($pessoa as $pessoa)
       @php
         $date=date('Y-m-d', $pessoa['date']);
         @endphp

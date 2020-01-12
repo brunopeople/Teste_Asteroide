@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pessoa;
 
 class PessoaController extends Controller
 {
@@ -14,7 +15,7 @@ class PessoaController extends Controller
     public function index()
     {
         $pessoa=\App\Pessoa::all();
-        return view('index', compact('pessoas'));
+        return view('index', compact('pessoa'));
     }
 
     /**
@@ -54,7 +55,20 @@ class PessoaController extends Controller
         $pessoa->filename=$name;
         $pessoa->save();
 
+         $validateData = $request->validate([
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+            'email' => 'required|max:255',
+            'date(format)' => 'required|numeric',
+            'adress' => 'required|max:255'
+
+        ]);
+
+        $pessoa = Pessoa::create($validateData);
+
         return redirect('pessoa')->width('sucess','O cadastro foi feito com sucesso!');
+
+
 
     }
 
